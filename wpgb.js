@@ -478,7 +478,7 @@
                         break;
                 }
                 break;
-            case 11://ステージ１１
+            case 11:
                 switch (flag) {
                     case 1:
                         messegeText = "";
@@ -515,9 +515,9 @@
                         messegeText = "力こそすべて";
                         document.getElementById("stage").textContent = "STAGE:60-1 --- 力の支配 ---";
                         document.getElementById("text").textContent = "ティンクは力による支配を始めた。";
-                        document.getElementById("text1").textContent = "村を襲い、街を襲い";
-                        document.getElementById("text2").textContent = "";
-                        document.getElementById("text3").textContent = "3:";
+                        document.getElementById("text1").textContent = "村を襲い、街を襲い、国を襲い、";
+                        document.getElementById("text2").textContent = "次から次へと戦いを生んでいった。";
+                        document.getElementById("text3").textContent = "狙うは世界征服！！";
                         if (flagLaser === 1) {
                             stage = 61;
                         } else {
@@ -549,6 +549,24 @@
                         console.log("Not-Stage");
                         break;
                 }
+                break;
+            case 61:
+                messegeText = "";
+                document.getElementById("stage").textContent = "STAGE:62-1 ---  ---";
+                document.getElementById("text").textContent = "";
+                document.getElementById("text1").textContent = "1:";
+                document.getElementById("text2").textContent = "2:";
+                document.getElementById("text3").textContent = "3:";
+                stage = 0;
+                break;
+            case 62:
+                messegeText = "";
+                document.getElementById("stage").textContent = "STAGE:62-1 ---  ---";
+                document.getElementById("text").textContent = "";
+                document.getElementById("text1").textContent = "1:";
+                document.getElementById("text2").textContent = "2:";
+                document.getElementById("text3").textContent = "3:";
+                stage = 0;
                 break;
             case 90:
                 switch (flag) {
