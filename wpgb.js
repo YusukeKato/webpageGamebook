@@ -60,6 +60,8 @@
     var flagfriend5 = 0;
     //メッセージテキスト
     var messegeText = "メッセージを送ります。";
+    //flag = 0;をよけるフラグ
+    var flagflagEsc = 0;
 
 
     flag1Button.onclick = () => {//ボタン１が押された
@@ -83,6 +85,9 @@
     }
     /* パラメータ管理 */
     function parameterfunc() {
+
+
+
         document.getElementById('messege').textContent = "メッセージ　：　" + messegeText;
         messegeText = "今のところなし";
         document.getElementById('hp-text').textContent = "体力 :" + HP;
@@ -146,7 +151,7 @@
             document.getElementById('p1-text3').textContent = "";
         }
         if (flagPower === 1) {
-            document.getElementById('p1-text4').textContent = "";
+            document.getElementById('p1-text4').textContent = "--IQ300";
         } else {
             document.getElementById('p1-text4').textContent = "";
         }
@@ -347,6 +352,12 @@
             case 6://ステージ６
                 switch (flag) {
                     case 1:
+                        flagSword = 1;
+                        Merit += 1;
+                        flagPra2 = 1;
+                        if (flagMerit === 0) {
+                            flagMerit = flagPra1 + flagPra2 + flagPra3 + flagPra4;
+                        }
                         messegeText = "ついに勇者となった";
                         document.getElementById('name').textContent = "ティンク（勇者）";
                         document.getElementById("stage").textContent = "STAGE:6-1 --- 勇者ティンク ---";
@@ -357,15 +368,31 @@
                         stage = 7;
                         break;
                     case 2:
+                        flagHammer = 1;
+                        Merit += 1;
+                        flagPra2 = 1;
+                        if (flagMerit === 0) {
+                            flagMerit = flagPra1 + flagPra2 + flagPra3 + flagPra4;
+                        }
                         messegeText = "飛び道具はこすい";
                         document.getElementById("stage").textContent = "STAGE:6-2 --- 飛び道具はこすい ---";
-                        document.getElementById("text").textContent = "2-3";
-                        document.getElementById("text1").textContent = "1:";
-                        document.getElementById("text2").textContent = "2:";
-                        document.getElementById("text3").textContent = "3:";
+                        document.getElementById("text").textContent = "ハンマーは武器としても優秀であり、";
+                        document.getElementById("text1").textContent = "大工になることもできる良き道具である。";
+                        document.getElementById("text2").textContent = "ずる賢く戦えば百戦錬磨間違いなし。";
+                        document.getElementById("text3").textContent = "ティンクの旅は続く。";
                         break;
                     case 3:
                         flagLaser = 1;
+                        flagflagEsc = 1;//flag=0;よける
+                        //stage,flag固定
+                        stage = 2;
+                        flag = 2;
+                        //
+                        Magic += 3;
+                        flagPra1 = 1;
+                        if (flagMagic === 0) {
+                            flagMagic = flagPra1 + flagPra2 + flagPra3 + flagPra4;
+                        }
                         messegeText = "魔王すら容易く貫く伝説の武器";
                         document.getElementById('name').textContent = "ティンク（魔王）";
                         document.getElementById("stage").textContent = "STAGE:6-3 --- これが最強武器 ---";
@@ -487,7 +514,44 @@
                 }
                 break;
             case 60:
-
+                switch (flag) {
+                    case 1:
+                        messegeText = "";
+                        document.getElementById("stage").textContent = "STAGE:60-1 --- 力の支配 ---";
+                        document.getElementById("text").textContent = "";
+                        document.getElementById("text1").textContent = "1:";
+                        document.getElementById("text2").textContent = "2:";
+                        document.getElementById("text3").textContent = "3:";
+                        break;
+                    case 2:
+                        messegeText = "";
+                        document.getElementById("stage").textContent = "STAGE:60-2 --- お金があれば何でもできる ---";
+                        document.getElementById("text").textContent = "2-3";
+                        document.getElementById("text1").textContent = "1:";
+                        document.getElementById("text2").textContent = "2:";
+                        document.getElementById("text3").textContent = "3:";
+                        break;
+                    case 3:
+                        messegeText = "優しい人は好かれる";
+                        document.getElementById("stage").textContent = "STAGE:60-3 --- 魔王のやさしさ ---";
+                        if (flagKind === 1) {
+                            document.getElementById("text").textContent = "ティンク（魔王）は人々に優しく語りかけた。";
+                            document.getElementById("text1").textContent = "そう、ティンクは争いなど望んでいなかったのだ！！";
+                            document.getElementById("text2").textContent = "ティンクの言葉に人々は心うたれた。";
+                            document.getElementById("text3").textContent = "世界は救われた！！！";
+                            stage = 104;
+                        } else {
+                            document.getElementById("text").textContent = "ティンク（魔王）は人々に優しく語りかけた。";
+                            document.getElementById("text1").textContent = "そう、ティンクは争いなど望んでいなかったのだ！！";
+                            document.getElementById("text2").textContent = "しかし、人々はティンクを信じなかった。";
+                            document.getElementById("text3").textContent = "ティンクは泣いた。一人泣いた。";
+                            stage = 110;
+                        }
+                        break;
+                    default:
+                        console.log("Not-Stage");
+                        break;
+                }
                 break;
             case 90:
                 switch (flag) {
@@ -804,13 +868,16 @@
                 document.getElementById("text1").textContent = "そして、また始まる。";
                 document.getElementById("text2").textContent = "グッドエンドを迎えるまで";
                 document.getElementById("text3").textContent = "ティンクの旅は続いていくだろう。";
-                satage = 0;
+                stage = 0;
                 break;
             default://まだ行動を選択していないのにGOボタンを押してしまったとき
                 console.log("Not-Flag");
                 break;
         }
-        flag = 0;//入力初期化
+        if (flagflagEsc === 0) {
+            flag = 0;//入力初期化
+        }
+        flagflagEsc = 0;
         document.getElementById('flag').textContent = "選択：0";
         parameterfunc();
     }
