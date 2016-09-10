@@ -1,6 +1,6 @@
 /**
  * START : 9.6.2016
- * LAST  : 9.9.2016
+ * LAST  : 9.10.2016
  * WebGame
  * GameBook1
  * Yusuke Kato
@@ -16,7 +16,7 @@
 
 /*
  *　問題点
- *　フラグ配列に入れたほうがいいのかもしれない
+ *　フラグの変数の山は何とかした方がいい
  *　シングルとダブルが混じってる(保留)
  *  console.logは残すことになる（保留）
  */
@@ -85,11 +85,7 @@
     }
     /* パラメータ管理 */
     function parameterfunc() {
-
-
-
         document.getElementById('messege').textContent = "メッセージ　：　" + messegeText;
-        messegeText = "今のところなし";
         document.getElementById('hp-text').textContent = "体力 :" + HP;
         if (flagMagic === 1) {
             document.getElementById('textPra1').textContent = "魔力 : " + Magic;
@@ -141,7 +137,7 @@
             document.getElementById('p1-text1').textContent = "";
         }
         if (flagKind === 1) {
-            document.getElementById('p1-text2').textContent = "--優しき心";
+            document.getElementById('p1-text2').textContent = "--優しい心";
         } else {
             document.getElementById('p1-text2').textContent = "";
         }
@@ -193,7 +189,7 @@
     }
     /* イベント、テキスト、ステージ管理 */
     function Eventfunc() {
-        switch (stage) {//ケースは１０通り？（選択肢により）
+        switch (stage) {
             case 0:
                 messegeText = "　ゲームがはじまりました。";
                 document.getElementById("stage").textContent = "STAGE:0 --- 物語の始まり ---";
@@ -232,7 +228,7 @@
                         document.getElementById("text2").textContent = "2:金に物を言わせる";
                         document.getElementById("text3").textContent = "3:心で語りかける";
                         document.getElementById('name').textContent = "ティンク（魔王）";
-                        HP += 100;
+                        HP += 20;
                         stage = 60;
                         break;
                     case 3:
@@ -337,7 +333,7 @@
                         break;
                     case 3:
                         flagKind = 1;
-                        messegeText = "「優しき心」を手に入れた！！"
+                        messegeText = "「優しい心」を手に入れた！！"
                         document.getElementById("stage").textContent = "STAGE:5-3 --- 優しさ屋 ---";
                         document.getElementById("text").textContent = "優しさ屋「優しさをお前に売ってやろう」";
                         document.getElementById("text1").textContent = "ティンクは優しさを手に入れた。しかし、代わりに何かを失った。";
@@ -516,15 +512,20 @@
             case 60:
                 switch (flag) {
                     case 1:
-                        messegeText = "";
+                        messegeText = "力こそすべて";
                         document.getElementById("stage").textContent = "STAGE:60-1 --- 力の支配 ---";
-                        document.getElementById("text").textContent = "";
-                        document.getElementById("text1").textContent = "1:";
-                        document.getElementById("text2").textContent = "2:";
+                        document.getElementById("text").textContent = "ティンクは力による支配を始めた。";
+                        document.getElementById("text1").textContent = "村を襲い、街を襲い";
+                        document.getElementById("text2").textContent = "";
                         document.getElementById("text3").textContent = "3:";
+                        if (flagLaser === 1) {
+                            stage = 61;
+                        } else {
+                            stage = 62;
+                        }
                         break;
                     case 2:
-                        messegeText = "";
+                        messegeText = "お金がすべて";
                         document.getElementById("stage").textContent = "STAGE:60-2 --- お金があれば何でもできる ---";
                         document.getElementById("text").textContent = "2-3";
                         document.getElementById("text1").textContent = "1:";
@@ -534,18 +535,14 @@
                     case 3:
                         messegeText = "優しい人は好かれる";
                         document.getElementById("stage").textContent = "STAGE:60-3 --- 魔王のやさしさ ---";
+                        document.getElementById("text").textContent = "ティンク（魔王）は人々に優しく語りかけた。";
+                        document.getElementById("text1").textContent = "そう、ティンクは争いなど望んでいなかったのだ！！";
+                        document.getElementById("text2").textContent = "ティンクの世界平和を望む言葉は";
+                        document.getElementById("text3").textContent = "世界中の人々に届いた。";
                         if (flagKind === 1) {
-                            document.getElementById("text").textContent = "ティンク（魔王）は人々に優しく語りかけた。";
-                            document.getElementById("text1").textContent = "そう、ティンクは争いなど望んでいなかったのだ！！";
-                            document.getElementById("text2").textContent = "ティンクの言葉に人々は心うたれた。";
-                            document.getElementById("text3").textContent = "世界は救われた！！！";
                             stage = 104;
                         } else {
-                            document.getElementById("text").textContent = "ティンク（魔王）は人々に優しく語りかけた。";
-                            document.getElementById("text1").textContent = "そう、ティンクは争いなど望んでいなかったのだ！！";
-                            document.getElementById("text2").textContent = "しかし、人々はティンクを信じなかった。";
-                            document.getElementById("text3").textContent = "ティンクは泣いた。一人泣いた。";
-                            stage = 110;
+                            stage = 105;
                         }
                         break;
                     default:
