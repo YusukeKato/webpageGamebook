@@ -1,6 +1,6 @@
 /**
  * START : 9.6.2016
- * LAST  : 9.10.2016
+ * LAST  : 9.11.2016
  * WebGame
  * GameBook1
  * Yusuke Kato
