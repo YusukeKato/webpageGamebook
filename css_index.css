@@ -1,0 +1,12 @@
+body {
+    text-align: center;
+}
+body {
+    background-color: #CCFFCC;
+}
+div#wrapper {
+    width: 900px;
+    margin: 0 auto;
+    text-align: left;
+    border: 1px solid #0000FF;
+}
