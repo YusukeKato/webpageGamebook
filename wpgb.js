@@ -21,6 +21,10 @@
  *  console.logは残すことになる（保留）
  */
 
+/**
+ * stage先がない場合はとりあえずstage = 0を書いて最初に戻しておく
+ */
+
 (function () {
     'use strict';
     const flag1Button = document.getElementById('flag1');
@@ -35,7 +39,7 @@
     var Merit = 0;//実力
     var Brain = 0;//知力
     var Money = 0;//財力
-    //パラメータフラグ
+    //パラメータフラグ 順番を決めるため
     var flagPra1 = 0;
     var flagPra2 = 0;
     var flagPra3 = 0;
@@ -190,7 +194,7 @@
     /* イベント、テキスト、ステージ管理 */
     function Eventfunc() {
         switch (stage) {
-            case 0:
+            case 0://stage 0
                 messegeText = "　ゲームがはじまりました。";
                 document.getElementById("stage").textContent = "STAGE:0 --- 物語の始まり ---";
                 document.getElementById("text").textContent = "ティンクエスト";
@@ -199,8 +203,8 @@
                 document.getElementById("text3").textContent = "あなたの選択が世界を変えるだろう。";
                  stage = 1;
                 break;
-            case 1://ステージ１
-                messegeText = "好きなものを選んで";
+            case 1://stage 0 -> 1
+                messegeText = "好きなものを選んでください";
                 document.getElementById("stage").textContent = "STAGE:1 --- 主人公ティンク ---";
                 document.getElementById("text").textContent = "ティンクとは何者なのか";
                 document.getElementById("text1").textContent = "1:男";
@@ -208,7 +212,7 @@
                 document.getElementById("text3").textContent = "3:天高く舞う金色の鳥";
                 stage = 2;
                 break;
-            case 2://ステージ２
+            case 2://stage 1 -> 2
                 switch (flag) {//選択肢３つ
                     case 1:
                         messegeText = "橋は危ない、本当に";
@@ -222,14 +226,14 @@
                         break;
                     case 2:
                         messegeText = "魔王は最強";
+                        document.getElementById('name').textContent = "ティンク（魔王）";
                         document.getElementById("stage").textContent = "STAGE:2-2 --- 魔王登場 ---";
                         document.getElementById("text").textContent = "ティンク（魔王）は世界征服を企む。";
                         document.getElementById("text1").textContent = "1:力で支配する";
                         document.getElementById("text2").textContent = "2:金に物を言わせる";
                         document.getElementById("text3").textContent = "3:心で語りかける";
-                        document.getElementById('name').textContent = "ティンク（魔王）";
-                        HP += 20;
-                        stage = 60;
+                        HP += 100;
+                        stage = 4;
                         break;
                     case 3:
                         messegeText = "ただの鳥ではない";
@@ -239,14 +243,14 @@
                         document.getElementById("text1").textContent = "1:そのまま太陽に突っ込む！！";
                         document.getElementById("text2").textContent = "2:あの広大な海へ飛び込む！！";
                         document.getElementById("text3").textContent = "3:憎き魔王が住む魔王城へ奇襲をかける！！";
-                        stage = 0;
+                        stage = 5;
                         break;
                     default:
                         console.log("Not-Stage");
                         break;
                 }
                 break;
-            case 3://ステージ３
+            case 3://stage 2 -> 3
                 switch (flag) {
                     case 1:
                         messegeText = "国で一番栄えている街";
@@ -255,7 +259,7 @@
                         document.getElementById("text1").textContent = "1:まずは買い物をする";
                         document.getElementById("text2").textContent = "2:カジノで大儲け";
                         document.getElementById("text3").textContent = "3:とりあえず宿屋で休む";
-                        stage = 4;
+                        stage = 6;
                         break;
                     case 2:
                         messegeText = "森の中心には・・・・・・";
@@ -264,15 +268,95 @@
                         document.getElementById("text1").textContent = "1:何も考えず突き進む";
                         document.getElementById("text2").textContent = "2:よく考えて突き進む";
                         document.getElementById("text3").textContent = "3:森の妖精に話しかける";
-                        stage = 0;
+                        stage = 7;
                         break;
                     case 3:
                         messegeText = "この橋を渡るにはどうするかな";
                         document.getElementById("stage").textContent = "STAGE:3-3 --- その橋渡るべからず ---";
-                        document.getElementById("text").textContent = "あの今にも落ちそうな朽ちた橋を渡る";
-                        document.getElementById("text1").textContent = "1:堂々と歩いて渡る";
-                        document.getElementById("text2").textContent = "2:全力で走って渡る";
-                        document.getElementById("text3").textContent = "3:叩いてから渡る";
+                        document.getElementById("text").textContent = "今にも落ちそうなほど朽ちた橋がある。";
+                        document.getElementById("text1").textContent = "1:堂々と真ん中を渡る";
+                        document.getElementById("text2").textContent = "2:落ち着いて端を渡る。";
+                        document.getElementById("text3").textContent = "3:叩いて確かめてから渡る。";
+                        stage = 8;
+                        break;
+                    default:
+                        console.log("Not-Stage");
+                        break;
+                }
+                break;
+            case 4://stage 2 -> 4
+                switch (flag) {
+                    case 1:
+                        messegeText = "力こそすべて";
+                        document.getElementById("stage").textContent = "STAGE:4-1 --- 力の支配 ---";
+                        document.getElementById("text").textContent = "ティンクは力による支配を始めた。";
+                        document.getElementById("text1").textContent = "村を襲い、街を襲い、国を襲い、";
+                        document.getElementById("text2").textContent = "次から次へと戦いを生んでいった。";
+                        document.getElementById("text3").textContent = "狙うは世界征服！！";
+                        if (flagLaser === 1) {
+                            stage = 9995;
+                        } else {
+                            stage = 9997;
+                        }
+                        break;
+                    case 2:
+                        messegeText = "お金がすべて";
+                        document.getElementById("stage").textContent = "STAGE:4-2 --- お金があれば何でもできる ---";
+                        document.getElementById("text").textContent = "魔王ティンクはカジノへ";
+                        document.getElementById("text1").textContent = "有り金すべてをかける。";
+                        document.getElementById("text2").textContent = "百戦連勝！！";
+                        document.getElementById("text3").textContent = "財力10000を手に入れた！！";
+                        flagPra4 = 1;
+                        Money += 10000;
+                        if( flagMoney === 0 ) {
+                            flagMoney = flagPra1 + flagPra2 + flagPra3 + flagPra4;
+                        }
+                        break;
+                    case 3:
+                        messegeText = "優しい人は好かれる";
+                        document.getElementById("stage").textContent = "STAGE:4-3 --- 魔王のやさしさ ---";
+                        document.getElementById("text").textContent = "ティンク（魔王）は人々に優しく語りかけた。";
+                        document.getElementById("text1").textContent = "そう、ティンクは争いなど望んでいなかったのだ！！";
+                        document.getElementById("text2").textContent = "ティンクの世界平和を望む言葉は";
+                        document.getElementById("text3").textContent = "世界中の人々に届いた。";
+                        if (flagKind === 1) {
+                            stage = 9993;
+                        } else {
+                            stage = 9994;
+                        }
+                        break;
+                    default:
+                        console.log("Not-Stage");
+                        break;
+                }
+                break;
+            case 5://stage 2 -> 5
+                switch (flag) {
+                    case 1:
+                        messegeText = "太陽の前ではすべて・・・・・・";
+                        document.getElementById("stage").textContent = "STAGE:5-1 --- 燃え尽きた魂 ---";
+                        document.getElementById("text").textContent = "金色の鳥は力強く羽ばたいた。";
+                        document.getElementById("text1").textContent = "あの熱く輝く太陽に向け突き進む。";
+                        document.getElementById("text2").textContent = "燃え尽きるまで突き進む。";
+                        document.getElementById("text3").textContent = "ただただ突き進むのみ。";
+                        stage = 4;
+                        break;
+                    case 2:
+                        messegeText = "海の底には何がいるか";
+                        document.getElementById("stage").textContent = "STAGE:5-2 --- 海の王 ---";
+                        document.getElementById("text").textContent = "金色の鳥は海の底まで行きついた。";
+                        document.getElementById("text1").textContent = "そこには海の王がいた。";
+                        document.getElementById("text2").textContent = "海の王は海を守るため、";
+                        document.getElementById("text3").textContent = "怪しいやつは葬る。";
+                        stage = 0;
+                        break;
+                    case 3:
+                        messegeText = "魔王は最強";
+                        document.getElementById("stage").textContent = "STAGE:9999 --- 魔王 ---";
+                        document.getElementById("text").textContent = "金色の鳥は魔王城へ突っ込んだ！！";
+                        document.getElementById("text1").textContent = "魔王を視界に捉え、くちばしを尖らせる！！";
+                        document.getElementById("text2").textContent = "このくちばしで魔王を殺す！！";
+                        document.getElementById("text3").textContent = "世界のために、家族のために";
                         stage = 0;
                         break;
                     default:
@@ -280,12 +364,12 @@
                         break;
                 }
                 break;
-            case 4://ステージ４
+            case 6://ステージ6
                 switch (flag) {
                     case 1:
                         messegeText = "買い物にはお金が必要";
                         document.getElementById("stage").textContent = "STAGE:4-1 --- 買い物は慎重に ---";
-                        document.getElementById("text").textContent = "必要な物がたくさんあり、何を買うか悩む";
+                        document.getElementById("text").textContent = "必要な物がたくさんあり、何を買うか悩む。";
                         document.getElementById("text1").textContent = "1:武器";
                         document.getElementById("text2").textContent = "2:食べ物";
                         document.getElementById("text3").textContent = "3:やさしさ";
@@ -312,7 +396,7 @@
                         break;
                 }
                 break;
-            case 5://ステージ５
+            case 7://ステージ7
                 switch (flag) {
                     case 1:
                         messegeText = "一番強そうなのは・・・・・・";
@@ -345,13 +429,13 @@
                         break;
                 }
                 break;
-            case 6://ステージ６
+            case 8://ステージ7
                 switch (flag) {
                     case 1:
                         flagSword = 1;
                         Merit += 1;
-                        flagPra2 = 1;
-                        if (flagMerit === 0) {
+                        flagPra2 = 1;//flagMeritに対応
+                        if (flagMerit === 0) {//flagMeritが何番目に手に入れられたか
                             flagMerit = flagPra1 + flagPra2 + flagPra3 + flagPra4;
                         }
                         messegeText = "ついに勇者となった";
@@ -364,9 +448,9 @@
                         stage = 7;
                         break;
                     case 2:
-                        flagHammer = 1;
+                        flagHammer = 1;//ハンマー取得
                         Merit += 1;
-                        flagPra2 = 1;
+                        flagPra2 = 1;//flagMeritに対応
                         if (flagMerit === 0) {
                             flagMerit = flagPra1 + flagPra2 + flagPra3 + flagPra4;
                         }
@@ -385,7 +469,7 @@
                         flag = 2;
                         //
                         Magic += 3;
-                        flagPra1 = 1;
+                        flagPra1 = 1;//flagMagicに対応
                         if (flagMagic === 0) {
                             flagMagic = flagPra1 + flagPra2 + flagPra3 + flagPra4;
                         }
@@ -402,7 +486,7 @@
                         break;
                 }
                 break;
-            case 7://ステージ７
+            case 9://ステージ8
                 messegeText = "魔王との闘いは近い";
                 document.getElementById("stage").textContent = "STAGE:7 --- 旅の先にあるのは ---";
                 document.getElementById("text").textContent = "ティンクは街を出た。";
@@ -411,7 +495,7 @@
                 document.getElementById("text3").textContent = "魔王を倒すのだ！！";
                 stage = 8;
                 break;
-            case 8://ステージ８
+            case 10://ステージ9
                 messegeText = "扉はかなり頑丈なようだ"
                 document.getElementById("stage").textContent = "STAGE:8 --- 決戦魔王城 ---";
                 document.getElementById("text").textContent = "魔王城に着いた。扉は固く閉ざされている。";
@@ -419,95 +503,6 @@
                 document.getElementById("text2").textContent = "2:よじ登る！！";
                 document.getElementById("text3").textContent = "3:裏から入る。";
                 stage = 90;
-                break;
-            case 9://ステージ８
-                switch (flag) {
-                    case 1:
-                        stage = 98;
-                        document.getElementById("text").textContent = "ティンクは鳥となり空高く舞い上がった！！";
-                        document.getElementById("text1").textContent = "1:太陽に突っ込む！！";
-                        document.getElementById("text2").textContent = "2:海に突っ込む！！";
-                        document.getElementById("text3").textContent = "3:魔王城に突っ込む！！";
-                        console.log("stage:8,flag:1");
-                        break;
-                    case 2:
-                        document.getElementById("text").textContent = "";
-                        document.getElementById("text1").textContent = "1:";
-                        document.getElementById("text2").textContent = "2:";
-                        document.getElementById("text3").textContent = "3:";
-                        console.log("stage:8,flag:2");
-                        break;
-                    case 3:
-                        document.getElementById("text").textContent = "3-3";
-                        document.getElementById("text1").textContent = "1:";
-                        document.getElementById("text2").textContent = "2:";
-                        document.getElementById("text3").textContent = "3:";
-                        console.log("stage:8,flag:3");
-                        break;
-                    default:
-                        console.log("Not-Stage");
-                        break;
-                }
-                break;
-            case 10://ステージ９
-                switch (flag) {
-                    case 1:
-                        stage = 98;
-                        document.getElementById("text").textContent = "ティンクは鳥となり空高く舞い上がった！！";
-                        document.getElementById("text1").textContent = "1:太陽に突っ込む！！";
-                        document.getElementById("text2").textContent = "2:海に突っ込む！！";
-                        document.getElementById("text3").textContent = "3:魔王城に突っ込む！！";
-                        console.log("stage:9,flag:1");
-                        break;
-                    case 2:
-                        document.getElementById("text").textContent = "2-3";
-                        document.getElementById("text1").textContent = "1:";
-                        document.getElementById("text2").textContent = "2:";
-                        document.getElementById("text3").textContent = "3:";
-                        console.log("stage:9,flag:2");
-                        break;
-                    case 3:
-                        document.getElementById("text").textContent = "3-3";
-                        document.getElementById("text1").textContent = "1:";
-                        document.getElementById("text2").textContent = "2:";
-                        document.getElementById("text3").textContent = "3:";
-                        console.log("stage:9,flag:3");
-                        break;
-                    default:
-                        console.log("Not-Stage");
-                        break;
-                }
-                break;
-            case 11:
-                switch (flag) {
-                    case 1:
-                        messegeText = "";
-                        document.getElementById("stage").textContent = "STAGE:8 ---  ---";
-                        document.getElementById("text").textContent = "";
-                        document.getElementById("text1").textContent = "1:";
-                        document.getElementById("text2").textContent = "2:";
-                        document.getElementById("text3").textContent = "3:";
-                        break;
-                    case 2:
-                        messegeText = "";
-                        document.getElementById("stage").textContent = "STAGE:8 ---  ---";
-                        document.getElementById("text").textContent = "2-3";
-                        document.getElementById("text1").textContent = "1:";
-                        document.getElementById("text2").textContent = "2:";
-                        document.getElementById("text3").textContent = "3:";
-                        break;
-                    case 3:
-                        messegeText = "";
-                        document.getElementById("stage").textContent = "STAGE:8 ---  ---";
-                        document.getElementById("text").textContent = "3-3";
-                        document.getElementById("text1").textContent = "1:";
-                        document.getElementById("text2").textContent = "2:";
-                        document.getElementById("text3").textContent = "3:";
-                        break;
-                    default:
-                        console.log("Not-Stage");
-                        break;
-                }
                 break;
             case 60:
                 switch (flag) {
@@ -598,8 +593,8 @@
                         document.getElementById("text2").textContent = "１０ダメージ！！";
                         HP -= 10;
                         if (HP <= 0) {
-                            document.getElementById("text3").textContent = "ティンクの旅はここで終わった・・・・・・";
-                            stage = 110;
+                            document.getElementById("text3").textContent = "HPがなくなった・・・・・・";
+                            stage = 9998;
                         } else {
                             document.getElementById("text3").textContent = "なんとか魔王の手下を倒した。";
                         }
@@ -616,269 +611,63 @@
                         break;
                 }
                 break;
-            case 91:
-                document.getElementById("stage").textContent = "STAGE:91 ---  ---";
-                document.getElementById("text").textContent = "3-3";
-                document.getElementById("text1").textContent = "1:";
-                document.getElementById("text2").textContent = "2:";
-                document.getElementById("text3").textContent = "3:";
-                stage = 92;
+            case 9993:
+                messegeText = "やさしさにあふれた世界";
+                document.getElementById("stage").textContent = " --- 優しい魔王 ---";
+                document.getElementById("text").textContent = "魔王の優しい心は世界に届いた。";
+                document.getElementById("text1").textContent = "世界中にやさしさがあふれる。";
+                document.getElementById("text2").textContent = "世界は平和になった！！";
+                document.getElementById("text3").textContent = "--- END ---";
+                stage = 0;
                 break;
-            case 92:
-                switch (flag) {
-                    case 1:
-                        document.getElementById("stage").textContent = "STAGE:90-1 ---  ---";
-                        document.getElementById("text").textContent = "2-3";
-                        document.getElementById("text1").textContent = "1:";
-                        document.getElementById("text2").textContent = "2:";
-                        document.getElementById("text3").textContent = "3:";
-                        break;
-                    case 2:
-                        document.getElementById("stage").textContent = "STAGE:90-1 ---  ---";
-                        document.getElementById("text").textContent = "2-3";
-                        document.getElementById("text1").textContent = "1:";
-                        document.getElementById("text2").textContent = "2:";
-                        document.getElementById("text3").textContent = "3:";
-                        break;
-                    case 3:
-                        document.getElementById("stage").textContent = "STAGE:90-1 ---  ---";
-                        document.getElementById("text").textContent = "3-3";
-                        document.getElementById("text1").textContent = "1:";
-                        document.getElementById("text2").textContent = "2:";
-                        document.getElementById("text3").textContent = "3:";
-                        break;
-                    default:
-                        console.log("Not-Stage");
-                        break;
-                }
+            case 9994:
+                messegeText = "やさしさは簡単には手に入らない";
+                document.getElementById("stage").textContent = " --- ゲームオーバー ---";
+                document.getElementById("text").textContent = "しかし、魔王には優しい心がなかった。";
+                document.getElementById("text1").textContent = "人々の心には魔王の言葉は響かない。";
+                document.getElementById("text2").textContent = "魔王は討たれた・・・・・・。";
+                document.getElementById("text3").textContent = "---END---";
+                stage = 0;
                 break;
-            case 93:
-                switch (flag) {
-                    case 1:
-                        document.getElementById("stage").textContent = "STAGE:90-1 ---  ---";
-                        document.getElementById("text").textContent = "2-3";
-                        document.getElementById("text1").textContent = "1:";
-                        document.getElementById("text2").textContent = "2:";
-                        document.getElementById("text3").textContent = "3:";
-                        break;
-                    case 2:
-                        document.getElementById("stage").textContent = "STAGE:90-1 ---  ---";
-                        document.getElementById("text").textContent = "2-3";
-                        document.getElementById("text1").textContent = "1:";
-                        document.getElementById("text2").textContent = "2:";
-                        document.getElementById("text3").textContent = "3:";
-                        break;
-                    case 3:
-                        document.getElementById("stage").textContent = "STAGE:90-1 ---  ---";
-                        document.getElementById("text").textContent = "3-3";
-                        document.getElementById("text1").textContent = "1:";
-                        document.getElementById("text2").textContent = "2:";
-                        document.getElementById("text3").textContent = "3:";
-                        break;
-                    default:
-                        console.log("Not-Stage");
-                        break;
-                }
+            case 9995:
+                messegeText = "レーザビームは敵を問答無用で消滅させる";
+                document.getElementById("stage").textContent = " --- ！！レーザビーム！！ ---";
+                document.getElementById("text").textContent = "魔王ティンクの前に勇者が現れた！！";
+                document.getElementById("text1").textContent = "勇者は魔王を倒す力を持つ！！";
+                document.getElementById("text2").textContent = "しかし、最強武器レーザビームを持つ";
+                document.getElementById("text3").textContent = "魔王ティンクの前では石ころも同然だった。";
+                stage = 9996;
                 break;
-            case 94:
-                switch (flag) {
-                    case 1:
-                        document.getElementById("stage").textContent = "STAGE:90-1 ---  ---";
-                        document.getElementById("text").textContent = "2-3";
-                        document.getElementById("text1").textContent = "1:";
-                        document.getElementById("text2").textContent = "2:";
-                        document.getElementById("text3").textContent = "3:";
-                        break;
-                    case 2:
-                        document.getElementById("stage").textContent = "STAGE:90-1 ---  ---";
-                        document.getElementById("text").textContent = "2-3";
-                        document.getElementById("text1").textContent = "1:";
-                        document.getElementById("text2").textContent = "2:";
-                        document.getElementById("text3").textContent = "3:";
-                        break;
-                    case 3:
-                        document.getElementById("stage").textContent = "STAGE:90-1 ---  ---";
-                        document.getElementById("text").textContent = "3-3";
-                        document.getElementById("text1").textContent = "1:";
-                        document.getElementById("text2").textContent = "2:";
-                        document.getElementById("text3").textContent = "3:";
-                        break;
-                    default:
-                        console.log("Not-Stage");
-                        break;
-                }
+            case 9996:
+                messegeText = "おわり";
+                document.getElementById("stage").textContent = " --- ゲームオーバー4 ---";
+                document.getElementById("text").textContent = "魔王ティンクは世界を手に入れた。";
+                document.getElementById("text1").textContent = "今のところ、ティンクは世界最強。";
+                document.getElementById("text2").textContent = "しかし、いつかは滅びるだろう。";
+                document.getElementById("text3").textContent = "--- END ---";
+                stage = 0;
                 break;
-            case 95:
-                switch (flag) {
-                    case 1:
-                        document.getElementById("stage").textContent = "STAGE:90-1 ---  ---";
-                        document.getElementById("text").textContent = "2-3";
-                        document.getElementById("text1").textContent = "1:";
-                        document.getElementById("text2").textContent = "2:";
-                        document.getElementById("text3").textContent = "3:";
-                        break;
-                    case 2:
-                        document.getElementById("stage").textContent = "STAGE:90-1 ---  ---";
-                        document.getElementById("text").textContent = "2-3";
-                        document.getElementById("text1").textContent = "1:";
-                        document.getElementById("text2").textContent = "2:";
-                        document.getElementById("text3").textContent = "3:";
-                        break;
-                    case 3:
-                        document.getElementById("stage").textContent = "STAGE:90-1 ---  ---";
-                        document.getElementById("text").textContent = "3-3";
-                        document.getElementById("text1").textContent = "1:";
-                        document.getElementById("text2").textContent = "2:";
-                        document.getElementById("text3").textContent = "3:";
-                        break;
-                    default:
-                        console.log("Not-Stage");
-                        break;
-                }
+            case 9997:
+                messegeText = "一度休んだ方がよいのでは？";
+                document.getElementById("stage").textContent = " --- ゲームオーバー3 ---";
+                document.getElementById("text").textContent = "ティンクは力尽きた・・・・・・";
+                document.getElementById("text1").textContent = "旅はここで終わり、";
+                document.getElementById("text2").textContent = "また始まる。";
+                document.getElementById("text3").textContent = "はじめから。";
+                stage = 0;
                 break;
-            case 96:
-                switch (flag) {
-                    case 1:
-                        document.getElementById("stage").textContent = "STAGE:90-1 ---  ---";
-                        document.getElementById("text").textContent = "2-3";
-                        document.getElementById("text1").textContent = "1:";
-                        document.getElementById("text2").textContent = "2:";
-                        document.getElementById("text3").textContent = "3:";
-                        break;
-                    case 2:
-                        document.getElementById("stage").textContent = "STAGE:90-1 ---  ---";
-                        document.getElementById("text").textContent = "2-3";
-                        document.getElementById("text1").textContent = "1:";
-                        document.getElementById("text2").textContent = "2:";
-                        document.getElementById("text3").textContent = "3:";
-                        break;
-                    case 3:
-                        document.getElementById("stage").textContent = "STAGE:90-1 ---  ---";
-                        document.getElementById("text").textContent = "3-3";
-                        document.getElementById("text1").textContent = "1:";
-                        document.getElementById("text2").textContent = "2:";
-                        document.getElementById("text3").textContent = "3:";
-                        break;
-                    default:
-                        console.log("Not-Stage");
-                        break;
-                }
+            case 9998:
+                messegeText = "一度休んだ方がよいのでは？";
+                document.getElementById("stage").textContent = " --- ゲームオーバー2 ---";
+                document.getElementById("text").textContent = "ティンクは力尽きた・・・・・・";
+                document.getElementById("text1").textContent = "旅はここで終わり、";
+                document.getElementById("text2").textContent = "また始まる。";
+                document.getElementById("text3").textContent = "はじめから。";
+                stage = 0;
                 break;
-            case 97:
-                switch (flag) {
-                    case 1:
-                        document.getElementById("stage").textContent = "STAGE:90-1 ---  ---";
-                        document.getElementById("text").textContent = "2-3";
-                        document.getElementById("text1").textContent = "1:";
-                        document.getElementById("text2").textContent = "2:";
-                        document.getElementById("text3").textContent = "3:";
-                        break;
-                    case 2:
-                        document.getElementById("stage").textContent = "STAGE:90-1 ---  ---";
-                        document.getElementById("text").textContent = "2-3";
-                        document.getElementById("text1").textContent = "1:";
-                        document.getElementById("text2").textContent = "2:";
-                        document.getElementById("text3").textContent = "3:";
-                        break;
-                    case 3:
-                        document.getElementById("stage").textContent = "STAGE:90-1 ---  ---";
-                        document.getElementById("text").textContent = "3-3";
-                        document.getElementById("text1").textContent = "1:";
-                        document.getElementById("text2").textContent = "2:";
-                        document.getElementById("text3").textContent = "3:";
-                        break;
-                    default:
-                        console.log("Not-Stage");
-                        break;
-                }
-                break;
-            case 98:
-                switch (flag) {
-                    case 1:
-                        document.getElementById("stage").textContent = "STAGE:90-1 ---  ---";
-                        document.getElementById("text").textContent = "2-3";
-                        document.getElementById("text1").textContent = "1:";
-                        document.getElementById("text2").textContent = "2:";
-                        document.getElementById("text3").textContent = "3:";
-                        break;
-                    case 2:
-                        document.getElementById("stage").textContent = "STAGE:90-1 ---  ---";
-                        document.getElementById("text").textContent = "2-3";
-                        document.getElementById("text1").textContent = "1:";
-                        document.getElementById("text2").textContent = "2:";
-                        document.getElementById("text3").textContent = "3:";
-                        break;
-                    case 3:
-                        document.getElementById("stage").textContent = "STAGE:90-1 ---  ---";
-                        document.getElementById("text").textContent = "3-3";
-                        document.getElementById("text1").textContent = "1:";
-                        document.getElementById("text2").textContent = "2:";
-                        document.getElementById("text3").textContent = "3:";
-                        break;
-                    default:
-                        console.log("Not-Stage");
-                        break;
-                }
-                break;
-            case 99:
-                switch (flag) {
-                    case 1:
-                        document.getElementById("stage").textContent = "STAGE:90-1 ---  ---";
-                        document.getElementById("text").textContent = "2-3";
-                        document.getElementById("text1").textContent = "1:";
-                        document.getElementById("text2").textContent = "2:";
-                        document.getElementById("text3").textContent = "3:";
-                        break;
-                    case 2:
-                        document.getElementById("stage").textContent = "STAGE:90-1 ---  ---";
-                        document.getElementById("text").textContent = "2-3";
-                        document.getElementById("text1").textContent = "1:";
-                        document.getElementById("text2").textContent = "2:";
-                        document.getElementById("text3").textContent = "3:";
-                        break;
-                    case 3:
-                        document.getElementById("stage").textContent = "STAGE:90-1 ---  ---";
-                        document.getElementById("text").textContent = "3-3";
-                        document.getElementById("text1").textContent = "1:";
-                        document.getElementById("text2").textContent = "2:";
-                        document.getElementById("text3").textContent = "3:";
-                        break;
-                    default:
-                        console.log("Not-Stage");
-                        break;
-                }
-                break;
-            case 100:
-                switch (flag) {
-                    case 1:
-                        document.getElementById("stage").textContent = "STAGE:90-1 ---  ---";
-                        document.getElementById("text").textContent = "2-3";
-                        document.getElementById("text1").textContent = "1:";
-                        document.getElementById("text2").textContent = "2:";
-                        document.getElementById("text3").textContent = "3:";
-                        break;
-                    case 2:
-                        document.getElementById("stage").textContent = "STAGE:90-1 ---  ---";
-                        document.getElementById("text").textContent = "2-3";
-                        document.getElementById("text1").textContent = "1:";
-                        document.getElementById("text2").textContent = "2:";
-                        document.getElementById("text3").textContent = "3:";
-                        break;
-                    case 3:
-                        document.getElementById("stage").textContent = "STAGE:90-1 ---  ---";
-                        document.getElementById("text").textContent = "3-3";
-                        document.getElementById("text1").textContent = "1:";
-                        document.getElementById("text2").textContent = "2:";
-                        document.getElementById("text3").textContent = "3:";
-                        break;
-                    default:
-                        console.log("Not-Stage");
-                        break;
-                }
-                break;
-            case 110:
-                messegeText = "一休みしてはどうですか";
-                document.getElementById("stage").textContent = "エンド：１０ --- ゲームオーバー ---";
+            case 9999:
+                messegeText = "一度休んだ方がよいのでは？";
+                document.getElementById("stage").textContent = "--- ゲームオーバー1 ---";
                 document.getElementById("text").textContent = "ティンクの旅はここで終わり、";
                 document.getElementById("text1").textContent = "そして、また始まる。";
                 document.getElementById("text2").textContent = "グッドエンドを迎えるまで";
