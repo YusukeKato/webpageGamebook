@@ -5,11 +5,11 @@ div {
     position: absolute;
 }
 .button {
-    width: 150px;
-    height: 75px;
+    width: 300px;
+    height: 150px;
     color: #1111FF;
     background-color: #CCCCFF;
-    border: 8px solid #FFFF55;
+    border: 10px solid #FFFF55;
     text-align: center;
 }
 .gobutton {
@@ -23,20 +23,20 @@ div {
 #panel2_1 {
     left: 20px;
     top: 70px;
-    width: 600px;
-    height: 550px;
+    width: 950px;
+    height: 650px;
     background-color: #BBFFBB;
 }
 #panel2_2 {
     left: 20px;
-    top: 630px;
-    width: 600px;
-    height: 360px;
+    top: 750px;
+    width: 950px;
+    height: 380px;
     background-color: #AABB55;
 }
 #panel2_3 {
     left: 20px;
-    top: 1050px;
+    top: 1150px;
     width: 300px;
     height: 50px;
     background-color: #FFFFFF;
